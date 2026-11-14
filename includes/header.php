@@ -1,0 +1,10 @@
+<?php
+require_once __DIR__ . '/../config/database.php';
+$pageTitle = $pageTitle ?? 'LUMIÈRE — Boutique Hotel & Resort';
+$activePage = $activePage ?? '';
+$base = APP_BASE;
+?>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#182a35"><title><?= e($pageTitle) ?></title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="<?= $base ?>/assets/css/style.css"></head><body>
+<header class="site-header"><a class="brand" href="<?= $base ?>/index.php"><span class="brand-mark">L</span><span><b>LUMIÈRE</b><small>BOUTIQUE HOTEL & RESORT</small></span></a><button class="menu-toggle" aria-label="Toggle navigation">☰</button><nav class="main-nav"><a class="<?= $activePage==='rooms'?'active':'' ?>" href="<?= $base ?>/pages/rooms.php">Stay</a><a href="<?= $base ?>/pages/restaurant.php">Dining</a><a href="<?= $base ?>/pages/services.php">Experiences</a><a href="<?= $base ?>/pages/gallery.php">The hotel</a><a href="<?= $base ?>/pages/contact.php">Contact</a></nav><div class="nav-actions"><?php if (current_user()): ?><a class="nav-account" href="<?= $base ?>/my-bookings.php">My stays</a><?php if (current_user()['role']==='admin'): ?><a class="nav-account" href="<?= $base ?>/admin/dashboard.php">Admin</a><?php endif; ?><a class="nav-account" href="<?= $base ?>/logout.php">Sign out</a><?php else: ?><a class="nav-account" href="<?= $base ?>/login.php">Sign in</a><?php endif; ?><a class="button button-small" href="<?= $base ?>/booking.php">Reserve</a></div></header>
+<?php if (!empty($_SESSION['flash'])): $f=$_SESSION['flash']; unset($_SESSION['flash']); ?><div class="toast toast-<?= e($f['type']) ?>"><?= e($f['message']) ?><button onclick="this.parentElement.remove()">×</button></div><?php endif; ?>
+<main>
